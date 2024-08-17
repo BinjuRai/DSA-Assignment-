@@ -1,6 +1,6 @@
 package com.example.dsaassignment;
 
-//Question 3 A solutions
+//Question 3 a solutions
 
 
 import java.util.ArrayList;
