@@ -29,19 +29,16 @@ class ClassroomScheduler {
                 roomQueue.poll();
             }
 
-            // Step 5: If no room is available, we delay the class until the next available room is free.
-            if (roomQueue.isEmpty()) {
+            // Step 5: Assign the class to the earliest available room.
+            if (!roomQueue.isEmpty()) {
                 int[] earliestRoom = roomQueue.poll();
-                start = earliestRoom[0];
-                end = start + (end - start);
+                earliestRoom[0] = end;
+                roomUsage[earliestRoom[1]]++;
+                roomQueue.offer(earliestRoom);
             }
-
-            // Step 6: Assign the class to the earliest available room.
-            roomQueue.offer(new int[]{end, roomQueue.size()});
-            roomUsage[roomQueue.size() - 1]++;
         }
 
-        // Step 7: Determine which room was used the most.
+        // Step 6: Determine which room was used the most.
         int maxUsage = 0, mostUsedRoom = 0;
         for (int i = 0; i < n; i++) {
             if (roomUsage[i] > maxUsage || (roomUsage[i] == maxUsage && i < mostUsedRoom)) {
@@ -61,6 +58,6 @@ class ClassroomScheduler {
                 {2, 7},
                 {3, 4}
         };
-        System.out.println(mostUsedClassroom(n, classes));
+        System.out.println(mostUsedClassroom(n, classes));  // Output should be 0 or 1 depending on the corrected logic
     }
 }
